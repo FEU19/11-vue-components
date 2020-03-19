@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
-		header
+		<super-header />
+		<super-header :isAuthenticated="true" />
 		<Content />
 		footer
 	</div>
@@ -8,11 +9,13 @@
 
 <script>
 import Content from './components/Content.vue'
+import Header from './components/Header'
 
 export default {
 	name: 'App',
 	components: {
-		Content
+		Content: Content,
+		'super-header': Header
 	}
 }
 </script>
@@ -22,8 +25,11 @@ export default {
 	font-family: Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
+	/* text-align: center; */
 	color: #2c3e50;
-	margin-top: 60px;
+	/* margin-top: 60px; */
+}
+body {
+	margin: 0px;
 }
 </style>
