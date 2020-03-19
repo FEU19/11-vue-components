@@ -1,8 +1,10 @@
 <template>
 	<div id="app">
-		<super-header />
-		<super-header :isAuthenticated="true" />
-		<Content />
+		<super-header :isAuthenticated="hasSignedIn"
+			@signOut="hasSignedIn = false" />
+		<Content :isAuthenticated="hasSignedIn"
+			@signIn="hasSignedIn = true"
+			@signOut="hasSignedIn = false" />
 		footer
 	</div>
 </template>
@@ -16,7 +18,10 @@ export default {
 	components: {
 		Content: Content,
 		'super-header': Header
-	}
+	},
+	data: () => ({
+		hasSignedIn: false
+	})
 }
 </script>
 

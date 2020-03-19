@@ -5,6 +5,9 @@
         </div>
         <div>
             {{ authMessage }}
+            <button
+                v-show="isAuthenticated"
+                @click="handleSignOut">Sign out</button>
         </div>
     </header>
 </template>
@@ -23,6 +26,12 @@ export default {
             } else {
                 return 'Sign in';  // should be a link or a button
             }
+        }
+    },
+    methods: {
+        handleSignOut() {
+            // this.isAuthenticated = false;  <- not ok
+            this.$emit('signOut');  // no need to send data with the event
         }
     }
 }
