@@ -6,22 +6,19 @@
                     :class="counterSelectedClass"
                     @click="selectedTab = 'counter'">Counter</button>
                 <button
+                    :class="counter2SelectedClass"
+                    @click="selectedTab = 'counter2'">Counter</button>
+                <button
                     :class="authSelectedClass"
                     @click="selectedTab = 'authentication'">Authentication</button>
             </div>
             <div class="content">
 
-                <div v-show="selectedTab == 'counter'">
-                    <div>
-                        {{ countMessage }}
-                    </div>
-                    <div>
-                        <button @click="count += 1">Increase the count</button>
-                        <button @click="increaseCount">Increase the count</button>
-                    </div>
-                </div>
+                <Counter v-if="selectedTab == 'counter'" />
 
-                <div v-show="selectedTab != 'counter'">
+                <Counter v-show="selectedTab == 'counter2'" />
+
+                <div v-show="selectedTab == 'authentication'">
                     <!-- {{ isAuthenticated }} -->
                     <button v-if="isAuthenticated"
                     @click="$emit('signOut')">Sign out</button>
@@ -37,21 +34,24 @@
 </template>
 
 <script>
+import Counter from './Counter'
+
 export default {
     name: '',
     props: {
         isAuthenticated: Boolean(false)
     },
     data: () => ({
-        count: 1,
         selectedTab: 'counter'
     }),
     computed: {
-        /*function*/ countMessage() {
-            return `The count is ${this.count}.`;
-        },
         counterSelectedClass() {
             if( this.selectedTab == 'counter' )
+                return 'selected';
+            return '';
+        },
+        counter2SelectedClass() {
+            if( this.selectedTab == 'counter2' )
                 return 'selected';
             return '';
         },
@@ -61,11 +61,7 @@ export default {
             return '';
         }
     },
-    methods: {
-        increaseCount() {
-            this.count += 2;
-        }
-    }
+    components: { Counter }
 }
 </script>
 
