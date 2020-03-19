@@ -2,20 +2,24 @@
     <div class="component">
         <div class="tabs">
             <div class="titles">
-                <button class="selected">Counter</button>
-                <button @click="selectedTab = 'authentication'">Authentication</button>
+                <button
+                    :class="counterSelectedClass"
+                    @click="selectedTab = 'counter'">Counter</button>
+                <button
+                    :class="authSelectedClass"
+                    @click="selectedTab = 'authentication'">Authentication</button>
             </div>
             <div class="content">
 
-                <template v-show="selectedTab == 'counter'">
-                <div>
-                    {{ countMessage }}
+                <div v-show="selectedTab == 'counter'">
+                    <div>
+                        {{ countMessage }}
+                    </div>
+                    <div>
+                        <button @click="count += 1">Increase the count</button>
+                        <button @click="increaseCount">Increase the count</button>
+                    </div>
                 </div>
-                <div>
-                    <button @click="count += 1">Increase the count</button>
-                    <button @click="increaseCount">Increase the count</button>
-                </div>
-                </template>
 
                 <div v-show="selectedTab != 'counter'">
                     <!-- {{ isAuthenticated }} -->
@@ -45,6 +49,16 @@ export default {
     computed: {
         /*function*/ countMessage() {
             return `The count is ${this.count}.`;
+        },
+        counterSelectedClass() {
+            if( this.selectedTab == 'counter' )
+                return 'selected';
+            return '';
+        },
+        authSelectedClass() {
+            if( this.selectedTab == 'authentication' )
+                return 'selected';
+            return '';
         }
     },
     methods: {
