@@ -5,19 +5,21 @@
 		<Content :isAuthenticated="hasSignedIn"
 			@signIn="hasSignedIn = true"
 			@signOut="hasSignedIn = false" />
-		footer
+		<Footer />
 	</div>
 </template>
 
 <script>
 import Content from './components/Content.vue'
 import Header from './components/Header'
+import Footer from './components/Footer'
 
 export default {
 	name: 'App',
 	components: {
 		Content: Content,
-		'super-header': Header
+		'super-header': Header,
+		Footer
 	},
 	data: () => ({
 		hasSignedIn: false

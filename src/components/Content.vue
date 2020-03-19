@@ -1,20 +1,34 @@
 <template>
     <div class="component">
-        <div>
-            {{ countMessage }}
+        <div class="tabs">
+            <div class="titles">
+                <button class="selected">Counter</button>
+                <button @click="selectedTab = 'authentication'">Authentication</button>
+            </div>
+            <div class="content">
+
+                <template v-show="selectedTab == 'counter'">
+                <div>
+                    {{ countMessage }}
+                </div>
+                <div>
+                    <button @click="count += 1">Increase the count</button>
+                    <button @click="increaseCount">Increase the count</button>
+                </div>
+                </template>
+
+                <div v-show="selectedTab != 'counter'">
+                    <!-- {{ isAuthenticated }} -->
+                    <button v-if="isAuthenticated"
+                    @click="$emit('signOut')">Sign out</button>
+                    <button v-else
+                    @click="$emit('signIn')">Sign in</button>
+                    <!-- v-show="!isAuthenticated" -->
+                </div>
+
+            </div>
         </div>
-        <div>
-            <button @click="count += 1">Increase the count</button>
-            <button @click="increaseCount">Increase the count</button>
-        </div>
-        <div>
-			<!-- {{ isAuthenticated }} -->
-			<button v-if="isAuthenticated"
-				@click="$emit('signOut')">Sign out</button>
-			<button v-else
-				@click="$emit('signIn')">Sign in</button>
-                <!-- v-show="!isAuthenticated" -->
-		</div>
+
     </div>
 </template>
 
@@ -25,7 +39,8 @@ export default {
         isAuthenticated: Boolean(false)
     },
     data: () => ({
-        count: 1
+        count: 1,
+        selectedTab: 'counter'
     }),
     computed: {
         /*function*/ countMessage() {
@@ -42,6 +57,33 @@ export default {
 
 <style scoped>
 .component {
+    padding: 1em;
+}
+.component > div {
+    /* background-color: red; */
+    margin-bottom: 1em;
+}
+.component > div:last-child {
+    margin-bottom: 0px;
+}
 
+.tabs {
+
+}
+.tabs > .titles {
+    display: flex;
+}
+.tabs > .titles > button {
+    margin-right: 2px;
+    border: 1px solid black;
+    background-color: lightgray;
+}
+.tabs > .content {
+    background-color: lightgray;
+    padding: 1em;
+}
+/* !important är FEL, gör selektorn mer specifik i stället */
+.tabs button.selected {
+    background-color: gray;
 }
 </style>
