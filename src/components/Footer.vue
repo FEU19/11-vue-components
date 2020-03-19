@@ -6,7 +6,7 @@
 
 <script>
 export default {
-
+	// An empty object is ok, since this component is "dumb" (has no logic, only static HTML+CSS)
 }
 </script>
 

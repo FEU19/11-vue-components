@@ -14,22 +14,24 @@
             </div>
             <div class="content">
 
+                <!-- Making a separate Counter component simplifies the template and Vue object in this component. -->
+                <!-- You can test the difference between v-if and v-show by running the app, clicking the counter buttons, change tab and change back. The tab using v-if "forgets" the value. That is because v-if removes the element from the DOM if the condition is false. If this line is too long to read, you really should enable WORD WRAP globally in your editor. Check the slides for first Vue lesson. -->
                 <Counter v-if="selectedTab == 'counter'" />
 
                 <Counter v-show="selectedTab == 'counter2'" />
 
                 <div v-show="selectedTab == 'authentication'">
+                    <!-- You can debug your app by printing the value of data props and computed properties. -->
                     <!-- {{ isAuthenticated }} -->
                     <button v-if="isAuthenticated"
                     @click="$emit('signOut')">Sign out</button>
                     <button v-else
                     @click="$emit('signIn')">Sign in</button>
-                    <!-- v-show="!isAuthenticated" -->
+                    <!-- Using v-else guarantees that one button is always visible. -->
                 </div>
-
             </div>
         </div>
-
+        <!-- Uh-oh, callback hell! Try to avoid this in your files, by moving code into components. -->
     </div>
 </template>
 
@@ -39,13 +41,16 @@ import Counter from './Counter'
 export default {
     name: '',
     props: {
+        // isAuthenticated comes from the parent, App component. Do not change the value of it directly, instead $emit an event and let the parent change the value.
         isAuthenticated: Boolean(false)
     },
     data: () => ({
         selectedTab: 'counter'
     }),
     computed: {
+        // Later in the course, we will see a better way to implement a tabbed component, using a list.
         counterSelectedClass() {
+            // This code can be simplified using the conditional (ternary) expression
             if( this.selectedTab == 'counter' )
                 return 'selected';
             return '';
